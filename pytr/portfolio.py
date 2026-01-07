@@ -8,7 +8,8 @@ from typing import Optional, Union
 
 from babel.numbers import format_decimal
 
-from .utils import get_logger, preview
+# ORIGINAL MODIFICADO
+from inversionesweb.controller.tradeRepublic.pytr.utils import get_logger, preview
 
 SUPPORTED_LANGUAGES = {
     "cs",
