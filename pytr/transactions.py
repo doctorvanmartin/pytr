@@ -7,9 +7,10 @@ from typing import Any, Iterable, Literal, Optional, TextIO, TypedDict, Union
 
 from babel.numbers import format_decimal
 
-from .event import ConditionalEventType, Event, PPEventType
-from .translation import setup_translation
-from .utils import get_logger
+# ORIGINAL MODIFICADO
+from inversionesweb.controller.tradeRepublic.pytr.event import ConditionalEventType, Event, PPEventType
+from inversionesweb.controller.tradeRepublic.pytr.translation import setup_translation
+from inversionesweb.controller.tradeRepublic.pytr.utils import get_logger
 
 SUPPORTED_LANGUAGES = {
     "cs",
@@ -37,6 +38,9 @@ CSVCOLUMN_TO_TRANSLATION_KEY = {
     "taxes": "CSVColumn_Taxes",
     "isin2": "CSVColumn_ISIN2",
     "shares2": "CSVColumn_Shares2",
+
+    # ORIGINAL AÑADIDO
+    "id_interno": "CSVColumn_ID_Interno",
 }
 
 
@@ -117,6 +121,9 @@ class TransactionExporter:
         - `taxes`
         - `isin2`
         - `shares2`
+
+        # ORIGINAL AÑADIDO
+        - `id_interno`
         """
 
         if event.event_type is None:
@@ -133,6 +140,9 @@ class TransactionExporter:
             "taxes": self._decimal_format(-event.taxes) if event.taxes is not None else None,
             "isin2": event.isin2,
             "shares2": self._decimal_format(event.shares2, False),
+            
+            # ORIGINAL AÑADIDO
+            "id_interno": event.id_interno,
         }
 
         if event.event_type == ConditionalEventType.TRADE_INVOICE:
