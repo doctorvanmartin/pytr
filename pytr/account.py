@@ -5,9 +5,30 @@ from getpass import getpass
 
 from pygments import formatters, highlight, lexers
 
-from pytr.api import CREDENTIALS_FILE, TradeRepublicApi
-from pytr.utils import get_logger
+# ORIGINAL MODIFICADO 
+from inversionesweb.controller.tradeRepublic.pytr.api import CREDENTIALS_FILE, TradeRepublicApi
+from inversionesweb.controller.tradeRepublic.pytr.utils import get_logger
 
+# ORIGINAL AÑADIDO
+def login_webapp_step_1(phone_no, pin):
+    error = None
+    countdown = None
+    websession_resumed = False
+    tr = TradeRepublicApi(phone_no=phone_no, pin=pin, save_cookies=False, locale="de")
+    try:
+        resume_websession = False #tr.resume_websession()
+        if resume_websession:
+            websession_resumed = True
+            return countdown, tr, error, websession_resumed
+        countdown = tr.initiate_weblogin()
+    except ValueError as e:
+        error = str(e)
+        return countdown, tr, error, websession_resumed
+    return countdown, tr, error, websession_resumed
+
+def login_webapp_step_2(tr : TradeRepublicApi, code):
+    tr.complete_weblogin(code)
+    return tr
 
 def get_settings(tr):
     formatted_json = json.dumps(tr.settings(), indent=2)
@@ -68,7 +89,8 @@ def login(phone_no=None, pin=None, web=True, store_credentials=False):
                 countdown = tr.initiate_weblogin()
             except ValueError as e:
                 log.fatal(str(e))
-                sys.exit(1)
+                # ORIGINAL MODIFICADO
+                exit(1)
             request_time = time.time()
             print("Enter the code you received to your mobile app as a notification.")
             print(f"Enter nothing if you want to receive the (same) code as SMS. (Countdown: {countdown})")
@@ -101,7 +123,8 @@ def login(phone_no=None, pin=None, web=True, store_credentials=False):
                 print("Reset done")
             else:
                 print("Cancelling reset")
-                sys.exit(1)
+                # ORIGINAL MODIFICADO
+                exit(1)
 
     log.info("Logged in")
     # log.debug(get_settings(tr))
