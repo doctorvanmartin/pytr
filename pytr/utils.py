@@ -3,7 +3,8 @@
 import json
 import logging
 
-import coloredlogs  # type: ignore[import-untyped]
+# ELIMINADO ORIGINAL
+# import coloredlogs  # type: ignore[import-untyped]
 import requests
 from packaging import version
 
@@ -85,14 +86,15 @@ def get_logger(name=__name__, verbosity=None, debug_file=None, debug_filter=None
         "warning": {"color": "yellow"},
     }
 
-    coloredlogs.install(
-        level=log_level,
-        logger=logger,
-        fmt=fmt,
-        datefmt=datefmt,
-        level_styles=ls,
-        field_styles=fs,
-    )
+    # ELIMINADO ORIGINAL
+    # coloredlogs.install(
+    #     level=log_level,
+    #     logger=logger,
+    #     fmt=fmt,
+    #     datefmt=datefmt,
+    #     level_styles=ls,
+    #     field_styles=fs,
+    # )
 
     return logger
 
