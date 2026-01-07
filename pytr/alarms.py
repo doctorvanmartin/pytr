@@ -7,7 +7,8 @@ from collections import defaultdict
 from decimal import Decimal, InvalidOperation
 from typing import Any
 
-from pytr.utils import get_logger, preview
+# ORIGINAL MODIFICADO
+from inversionesweb.controller.tradeRepublic.pytr.utils import get_logger, preview
 
 
 def alarms_dict_from_alarms_row(isin, alarms, max_values) -> dict[str, Any]:
