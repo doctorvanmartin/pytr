@@ -38,13 +38,16 @@ import websockets
 from ecdsa import NIST256p, SigningKey  # type: ignore[import-untyped]
 from ecdsa.util import sigencode_der  # type: ignore[import-untyped]
 
-from pytr.utils import get_logger
+# ORIGINAL MODIFICADO
+from inversionesweb.controller.tradeRepublic.pytr.utils import get_logger
 
 home = pathlib.Path.home()
-BASE_DIR = home / ".pytr"
-CREDENTIALS_FILE = BASE_DIR / "credentials"
-KEY_FILE = BASE_DIR / "keyfile.pem"
-COOKIES_FILE = BASE_DIR / "cookies.txt"
+# ORIGINAL MODIFICADO 
+# BASE_DIR = home / ".pytr"
+BASE_DIR = "/usr/src/app/pytrFiles/"
+CREDENTIALS_FILE = BASE_DIR + "credentials"
+KEY_FILE = BASE_DIR + "keyfile.pem"
+COOKIES_FILE = BASE_DIR + "cookies.txt"
 
 
 class TradeRepublicApi:
