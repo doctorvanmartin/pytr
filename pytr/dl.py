@@ -9,10 +9,11 @@ from pathvalidate import sanitize_filepath
 from requests import Response
 from requests_futures.sessions import FuturesSession  # type: ignore[import-untyped]
 
-from .event import Event
-from .timeline import Timeline
-from .transactions import TransactionExporter
-from .utils import get_logger
+# ORIGINAL CAMBIADO
+from inversionesweb.controller.tradeRepublic.pytr.event import Event
+from inversionesweb.controller.tradeRepublic.pytr.timeline import Timeline
+from inversionesweb.controller.tradeRepublic.pytr.transactions import TransactionExporter
+from inversionesweb.controller.tradeRepublic.pytr.utils import get_logger
 
 event_subfolder_mapping = {
     "OUTGOING_TRANSFER_DELEGATION": "Auszahlungen",
@@ -232,7 +233,7 @@ class DL:
                     format=self.format_export,
                 )
 
-        self.work_responses()
+        #ORIGINAL ELIMINADO self.work_responses()
 
     def dl_callback(self, event):
         has_docs = False
@@ -414,7 +415,7 @@ class DL:
 
                 future.filepath.parent.mkdir(parents=True, exist_ok=True)  # type: ignore[attr-defined]
                 with open(future.filepath, "wb") as f:  # type: ignore[attr-defined]
-                    f.write(r.content)
+                    # ORIGINAL ELIMINADO f.write(r.content)
                     self.done += 1
                     history_file.write(f"{future.doc_url_base}\n")  # type: ignore[attr-defined]
 
