@@ -1,8 +1,8 @@
 import asyncio
 from datetime import datetime, timedelta
 
-from pytr.utils import preview
-
+# ORIGINAL MODIFICADO
+from inversionesweb.controller.tradeRepublic.pytr.utils import preview
 
 class Details:
     def __init__(self, tr, isin):
