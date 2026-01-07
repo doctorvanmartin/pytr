@@ -8,7 +8,8 @@ from typing import Any, Dict, Optional, Tuple
 
 from babel.numbers import NumberFormatError, parse_decimal
 
-from .utils import get_logger
+# ORIGINAL MODIFICADO
+from inversionesweb.controller.tradeRepublic.pytr.utils import get_logger
 
 
 class EventType(Enum):
@@ -268,6 +269,8 @@ class Event:
     fees: Optional[float]
     taxes: Optional[float]
     note: Optional[str]
+    # ORIGINAL AÑADIDO
+    id_interno: Optional[str] = None
 
     @classmethod
     def from_dict(cls, event_dict: Dict[Any, Any]):
@@ -279,6 +282,10 @@ class Event:
         Returns:
             Event: Event object
         """
+        # ORIGINAL AÑADIDO
+        id_interno: str = event_dict["id"]
+        dateTime: datetime = datetime.fromisoformat(event_dict["timestamp"][:19])
+
         date: datetime = datetime.fromisoformat(event_dict["timestamp"][:19])
         title: str = event_dict["title"]
         isin2: Optional[str] = None
@@ -444,6 +451,9 @@ class Event:
         """
         isin, shares, shares2, value, fees, taxes, note = (None,) * 7
 
+        # ORIGINAL AÑADIDO
+        id_interno = None
+        id_interno = event_dict["id"] 
         if isinstance(event_type, ConditionalEventType) or event_type in [
             PPEventType.DIVIDEND,
             PPEventType.SPINOFF,
@@ -461,7 +471,7 @@ class Event:
             elif event_type in [PPEventType.DEPOSIT, PPEventType.REMOVAL]:
                 note = cls._parse_card_note(event_dict)
 
-        return isin, shares, shares2, value, fees, taxes, note
+        return isin, shares, shares2, value, fees, taxes, note, id_interno
 
     @staticmethod
     def _parse_isin(event_dict: Dict[Any, Any]) -> str:
