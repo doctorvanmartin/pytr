@@ -4,22 +4,24 @@ import argparse
 import asyncio
 import shutil
 import signal
-import sys
+# ORIGINAL MODIFICADO
+# import sys
 from datetime import datetime, timedelta
 from importlib.metadata import version
 from pathlib import Path
 
 import shtab
 
-from pytr.account import login
-from pytr.alarms import Alarms
-from pytr.details import Details
-from pytr.dl import DL
-from pytr.event import Event
-from pytr.portfolio import PORTFOLIO_COLUMNS, Portfolio
-from pytr.timeline import Timeline
-from pytr.transactions import SUPPORTED_LANGUAGES, TransactionExporter
-from pytr.utils import check_version, get_logger
+# ORIGINAL MODIFICADO
+from  inversionesweb.controller.tradeRepublic.pytr.account import login
+from  inversionesweb.controller.tradeRepublic.pytr.alarms import Alarms
+from  inversionesweb.controller.tradeRepublic.pytr.details import Details
+from  inversionesweb.controller.tradeRepublic.pytr.dl import DL
+from  inversionesweb.controller.tradeRepublic.pytr.event import Event
+from  inversionesweb.controller.tradeRepublic.pytr.portfolio import PORTFOLIO_COLUMNS, Portfolio
+from  inversionesweb.controller.tradeRepublic.pytr.timeline import Timeline
+from  inversionesweb.controller.tradeRepublic.pytr.transactions import SUPPORTED_LANGUAGES, TransactionExporter
+from  inversionesweb.controller.tradeRepublic.pytr.utils import check_version, get_logger
 
 
 def get_main_parser():
@@ -397,11 +399,13 @@ def exit_gracefully(signum, frame):
 
     try:
         if input("\nReally quit? (y/n)> ").lower().startswith("y"):
-            sys.exit(1)
+            # ORIGINAL MODIFICADO
+            exit(1)
 
     except KeyboardInterrupt:
         print("Ok ok, quitting")
-        sys.exit(1)
+        # ORIGINAL MODIFICADO
+        exit(1)
     # restore the exit gracefully handler here
     signal.signal(signal.SIGINT, exit_gracefully)
 
