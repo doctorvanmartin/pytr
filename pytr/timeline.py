@@ -1,8 +1,9 @@
 import json
 from datetime import datetime
 
-from .api import TradeRepublicError
-from .utils import get_logger, preview
+# ORIGINAL MODIFICADO
+from inversionesweb.controller.tradeRepublic.pytr.api import TradeRepublicError
+from inversionesweb.controller.tradeRepublic.pytr.utils import get_logger, preview
 
 MAX_EVENT_REQUEST_BATCH = 1000
 
